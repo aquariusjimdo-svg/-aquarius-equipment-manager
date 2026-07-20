@@ -1,166 +1,212 @@
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b4f8c">
-<title>Aquarius Equipment Manager</title>
-<style>
-:root{--b:#0b4f8c;--b2:#1976c9;--bg:#f3f8fc;--w:#fff;--t:#173247;--m:#708394;--g:#168f5b;--o:#e88418;--r:#cf4040;--bd:#d8e5ef}
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--t)}
-button,input,select,textarea{font:inherit}.hidden{display:none!important}
-.login{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(145deg,var(--b),var(--b2))}
-.card{background:#fff;border-radius:18px;padding:16px;margin-bottom:13px;box-shadow:0 10px 26px #0b4f8c1f}
-.login .card{width:min(430px,100%);padding:24px}.login h1{color:var(--b);margin:0}
-.field{display:flex;flex-direction:column;gap:6px;margin-top:11px}label{font-size:13px;font-weight:700}
-input,select,textarea{width:100%;padding:12px;border:1px solid var(--bd);border-radius:12px;background:#fff}
-textarea{min-height:80px}.btn{border:0;border-radius:12px;padding:11px 14px;font-weight:750}.primary{background:var(--b2);color:#fff}.soft{background:#e9f4fc;color:var(--b)}.danger{background:#fdeaea;color:var(--r)}.success{background:#e5f6ee;color:var(--g)}.small{padding:8px 10px;font-size:13px}
-.top{position:sticky;top:0;z-index:4;background:linear-gradient(135deg,var(--b),var(--b2));color:#fff;padding:15px 17px}.top h1{font-size:20px;margin:0}.sub{font-size:13px;opacity:.9;margin-top:3px}
-.topline{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logoutBtn{border:1px solid #ffffff88;background:#ffffff1f;color:#fff;border-radius:11px;padding:9px 11px;font-weight:750;white-space:nowrap}
-main{max-width:1000px;margin:auto;padding:15px 15px 95px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#fff;border-radius:16px;padding:15px;box-shadow:0 8px 22px #0b4f8c18}.num{font-size:27px;font-weight:850;color:var(--b)}.muted{font-size:13px;color:var(--m)}
-.title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:11px}.title h2{margin:0;font-size:20px}
-.list{display:flex;flex-direction:column;gap:10px}.item{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:13px}.row{display:flex;justify-content:space-between;gap:10px}.item h3{font-size:16px;margin:0 0 5px}.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
-.badge{padding:5px 9px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}.free,.approved{background:#e5f6ee;color:var(--g)}.reserved{background:#fff0de;color:var(--o)}.defect,.rejected{background:#fdeaea;color:var(--r)}.open{background:#e9f4fc;color:var(--b)}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--bd);display:grid;grid-template-columns:repeat(5,1fr);padding:6px 4px calc(6px + env(safe-area-inset-bottom));z-index:5}.nav button{border:0;background:none;color:var(--m);font-size:11px;padding:7px 1px}.nav .active{color:var(--b);font-weight:800}.ico{display:block;font-size:20px}
-dialog{border:0;border-radius:18px;padding:0;width:min(94vw,600px)}dialog::backdrop{background:#102f465e}.mh{background:var(--b);color:#fff;padding:15px;display:flex;justify-content:space-between}.mb{padding:16px}.close{border:0;background:none;color:#fff;font-size:24px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}.empty{text-align:center;color:var(--m);padding:22px}
-@media(min-width:760px){.stats{grid-template-columns:repeat(4,1fr)}main{padding:24px 24px 100px}.nav{left:50%;transform:translateX(-50%);max-width:900px;border:1px solid var(--bd);border-bottom:0;border-radius:18px 18px 0 0}}
-@media(max-width:600px){.grid{grid-template-columns:1fr}.full{grid-column:auto}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b4f8c">
+  <title>Aquarius Equipment Manager</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<section id="login" class="login">
- <div class="card">
-  <h1>Aquarius Equipment Manager</h1><p class="muted">Aquarius Rosenstein e.V.</p>
-  <div class="card" style="background:#e9f4fc;box-shadow:none"><b>Gerätewart:</b> wart / aquarius<br><b>Mitglied:</b> mitglied / aquarius</div>
-  <div class="field"><label>Benutzername</label><input id="u"></div>
-  <div class="field"><label>Passwort</label><input id="p" type="password"></div>
-  <button class="btn primary" style="width:100%;margin-top:15px" onclick="doLogin()">Anmelden</button>
-  <div id="err" class="muted" style="color:var(--r);margin-top:8px"></div>
- </div>
-</section>
+<section id="loginView" class="login">
+  <div class="login-card">
+    <div class="brand-mark">AQ</div>
+    <h1>Aquarius Equipment Manager</h1>
+    <p>Aquarius Rosenstein e.V.</p>
 
-<div id="app" class="hidden">
-<header class="top">
-  <div class="topline">
-    <div><h1>Aquarius Equipment Manager</h1><div id="who" class="sub"></div></div>
-    <button class="logoutBtn" onclick="logout()">Benutzer wechseln</button>
+    <div class="demo-box">
+      <b>Gerätewart:</b> wart / aquarius<br>
+      <b>Mitglied:</b> mitglied / aquarius
+    </div>
+
+    <label>Benutzername
+      <input id="loginUser" autocomplete="username" placeholder="wart oder mitglied">
+    </label>
+    <label>Passwort
+      <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Passwort">
+    </label>
+    <button id="loginButton" class="btn primary full">Anmelden</button>
+    <div id="loginError" class="error"></div>
   </div>
-</header>
-<main>
-<section id="v-dashboard">
- <div class="stats">
-  <div class="stat"><div id="sm" class="num">0</div><div class="muted">Mitglieder</div></div>
-  <div class="stat"><div id="se" class="num">0</div><div class="muted">Equipment</div></div>
-  <div class="stat"><div id="sr" class="num">0</div><div class="muted">Reservierungen</div></div>
-  <div class="stat"><div id="so" class="num">0</div><div class="muted">Offen</div></div>
- </div>
- <div class="card" style="margin-top:13px"><div class="title"><h2>Schnellzugriff</h2></div><div class="grid">
-  <button class="btn soft" onclick="view('members')">👥 Mitglieder</button><button class="btn soft" onclick="view('equipment')">🤿 Equipment</button>
-  <button class="btn soft" onclick="view('reservations')">📅 Reservierungen</button><button class="btn soft" onclick="view('history')">📜 Historie</button>
- </div></div>
 </section>
 
-<section id="v-members" class="hidden">
- <div class="title"><h2>Mitglieder</h2><button id="newMember" class="btn primary" onclick="memberOpen()">+ Neu</button></div>
- <div id="members" class="list"></div>
-</section>
+<div id="appView" class="hidden">
+  <header class="topbar">
+    <div>
+      <h1>Aquarius Equipment Manager</h1>
+      <div id="sessionLabel" class="session-label"></div>
+    </div>
+    <button id="logoutButton" class="btn header-button">Benutzer wechseln</button>
+  </header>
 
-<section id="v-equipment" class="hidden">
- <div class="title"><h2>Equipment</h2><button id="newEquipment" class="btn primary" onclick="equipmentOpen()">+ Neu</button></div>
- <div id="equipment" class="list"></div>
-</section>
+  <main id="mainContent">
+    <section id="page-dashboard" class="page">
+      <div class="page-title">
+        <div>
+          <h2>Dashboard</h2>
+          <p id="dashboardIntro"></p>
+        </div>
+      </div>
+      <div id="dashboardTiles" class="tiles"></div>
+      <div id="dashboardRecent" class="panel"></div>
+    </section>
 
-<section id="v-reservations" class="hidden">
- <div class="title"><h2>Reservierungen</h2><button class="btn primary" onclick="reservationOpen()">+ Anfrage</button></div>
- <div id="reservations" class="list"></div>
-</section>
+    <section id="page-reservations" class="page hidden">
+      <div class="page-title">
+        <div>
+          <h2 id="reservationsTitle">Reservierungen</h2>
+          <p id="reservationsSubtitle"></p>
+        </div>
+        <button id="newReservationButton" class="btn primary">+ Neue Reservierung</button>
+      </div>
+      <div class="toolbar">
+        <input id="reservationSearch" placeholder="Reservierungen durchsuchen">
+        <select id="reservationStatusFilter">
+          <option value="">Alle Status</option>
+          <option>Beantragt</option>
+          <option>Genehmigt</option>
+          <option>Teilweise genehmigt</option>
+          <option>Abgelehnt</option>
+          <option>Storniert</option>
+        </select>
+      </div>
+      <div id="reservationsList" class="list"></div>
+    </section>
 
-<section id="v-history" class="hidden"><div class="title"><h2>Historie</h2></div><div id="history" class="list"></div></section>
-</main>
+    <section id="page-inventory" class="page hidden" data-admin-only>
+      <div class="page-title">
+        <div><h2>Inventar</h2><p>Jeder Gegenstand wird einzeln geführt.</p></div>
+        <button id="newInventoryButton" class="btn primary">+ Gerät</button>
+      </div>
+      <div class="toolbar">
+        <input id="inventorySearch" placeholder="Inventarnummer, Kategorie oder Bezeichnung">
+        <select id="inventoryStatusFilter">
+          <option value="">Alle Status</option>
+          <option>Verfügbar</option>
+          <option>Reserviert</option>
+          <option>Ausgeliehen</option>
+          <option>Wartung</option>
+          <option>Defekt</option>
+        </select>
+      </div>
+      <div id="inventoryList" class="list"></div>
+    </section>
 
-<nav class="nav">
- <button data-v="dashboard" class="active" onclick="view('dashboard')"><span class="ico">🏠</span>Start</button>
- <button data-v="members" onclick="view('members')"><span class="ico">👥</span>Mitglieder</button>
- <button data-v="equipment" onclick="view('equipment')"><span class="ico">🤿</span>Equipment</button>
- <button data-v="reservations" onclick="view('reservations')"><span class="ico">📅</span>Reservierung</button>
- <button data-v="history" onclick="view('history')"><span class="ico">📜</span>Historie</button>
-</nav>
+    <section id="page-members" class="page hidden" data-admin-only>
+      <div class="page-title">
+        <div><h2>Mitglieder</h2><p>Nur für Gerätewarte sichtbar.</p></div>
+        <button id="newMemberButton" class="btn primary">+ Mitglied</button>
+      </div>
+      <div class="toolbar">
+        <input id="memberSearch" placeholder="Name oder E-Mail suchen">
+        <select id="memberStatusFilter">
+          <option value="">Alle Status</option>
+          <option>Aktiv</option>
+          <option>Gesperrt</option>
+        </select>
+      </div>
+      <div id="membersList" class="list"></div>
+    </section>
+
+    <section id="page-history" class="page hidden" data-admin-only>
+      <div class="page-title"><div><h2>Historie</h2><p>Änderungen und Vorgänge.</p></div></div>
+      <div id="historyList" class="list"></div>
+    </section>
+
+    <section id="page-loans" class="page hidden">
+      <div class="page-title"><div><h2>Meine Ausleihen</h2><p>Aktuell zugewiesene Ausrüstung.</p></div></div>
+      <div id="loansList" class="list"></div>
+    </section>
+  </main>
+
+  <nav id="bottomNav" class="bottom-nav"></nav>
+  <div class="version">Version 0.3</div>
 </div>
 
-<dialog id="memberDlg"><div class="mh"><b>Mitglied</b><button class="close" onclick="memberDlg.close()">×</button></div><div class="mb">
-<input id="mid" type="hidden"><div class="grid">
-<div class="field"><label>Name</label><input id="mname"></div><div class="field"><label>Gruppe</label><select id="mgroup"><option>Mitglied</option><option>Vorstand</option><option>Jugend</option></select></div>
-<div class="field"><label>E-Mail</label><input id="memail"></div><div class="field"><label>Status</label><select id="mstatus"><option>Aktiv</option><option>Gesperrt</option></select></div>
-</div><button class="btn primary" style="width:100%;margin-top:14px" onclick="memberSave()">Speichern</button></div></dialog>
+<dialog id="reservationDialog">
+  <form method="dialog" class="dialog-shell" id="reservationForm">
+    <header><h3>Neue Reservierung</h3><button class="icon-button" value="cancel">×</button></header>
+    <div class="dialog-body">
+      <div class="form-grid">
+        <label id="reservationMemberField">Mitglied
+          <select id="reservationMember"></select>
+        </label>
+        <label>Von
+          <input id="reservationFrom" type="date" required>
+        </label>
+        <label>Bis
+          <input id="reservationTo" type="date" required>
+        </label>
+      </div>
 
-<dialog id="equipmentDlg"><div class="mh"><b>Equipment</b><button class="close" onclick="equipmentDlg.close()">×</button></div><div class="mb">
-<input id="eid" type="hidden"><div class="grid">
-<div class="field"><label>Inventarnummer</label><input id="einventory"></div><div class="field"><label>Kategorie</label><select id="ecategory"><option>Flasche</option><option>Jacket</option><option>Atemregler</option><option>Computer</option><option>Sonstiges</option></select></div>
-<div class="field full"><label>Bezeichnung</label><input id="ename" placeholder="z. B. 12 l Stahl"></div><div class="field"><label>Größe / Liter</label><input id="esize"></div><div class="field"><label>Status</label><select id="estatus"><option>Frei</option><option>Reserviert</option><option>Defekt</option></select></div>
-</div><button class="btn primary" style="width:100%;margin-top:14px" onclick="equipmentSave()">Speichern</button></div></dialog>
+      <h4>Ausrüstung auswählen</h4>
+      <p class="hint">Mehrere Kategorien können in einer Reservierung kombiniert werden.</p>
+      <div id="reservationItems" class="reservation-items"></div>
+      <div id="reservationFormError" class="error"></div>
+    </div>
+    <footer>
+      <button class="btn soft" value="cancel">Abbrechen</button>
+      <button id="saveReservationButton" type="button" class="btn primary">Reservierung senden</button>
+    </footer>
+  </form>
+</dialog>
 
-<dialog id="reservationDlg"><div class="mh"><b>Reservierungsanfrage</b><button class="close" onclick="reservationDlg.close()">×</button></div><div class="mb">
-<div class="grid">
-<div class="field"><label>Mitglied</label><select id="rmember"></select></div><div class="field"><label>Kategorie</label><select id="rcategory"><option>Flasche</option><option>Jacket</option><option>Atemregler</option><option>Computer</option><option>Sonstiges</option></select></div>
-<div class="field"><label>Anzahl</label><input id="rqty" type="number" min="1" value="1"></div><div class="field"><label>Tarif</label><select id="rtariff"><option>Training</option><option>Tag</option><option>Wochenende</option><option>Woche</option><option>Ausbildung</option></select></div>
-<div class="field"><label>Von</label><input id="rfrom" type="date"></div><div class="field"><label>Bis</label><input id="rto" type="date"></div>
-<div class="field full"><label>Bemerkung</label><textarea id="rnote"></textarea></div>
-</div><button class="btn primary" style="width:100%;margin-top:14px" onclick="reservationSave()">Anfrage speichern</button></div></dialog>
+<dialog id="approvalDialog">
+  <form method="dialog" class="dialog-shell">
+    <header><h3>Reservierung bearbeiten</h3><button class="icon-button" value="cancel">×</button></header>
+    <div class="dialog-body">
+      <div id="approvalMember" class="approval-member"></div>
+      <div id="approvalItems" class="approval-items"></div>
+    </div>
+    <footer>
+      <button class="btn danger" id="rejectReservationButton" type="button">Ablehnen</button>
+      <button class="btn primary" id="saveApprovalButton" type="button">Genehmigung speichern</button>
+    </footer>
+  </form>
+</dialog>
 
-<script>
-const KEY='aquarius_db_v1';
-const id=()=>crypto.randomUUID();
-const seed=()=>({members:[{id:id(),name:'Max Mustermann',group:'Mitglied',email:'max@example.de',status:'Aktiv'},{id:id(),name:'Anna Beispiel',group:'Jugend',email:'anna@example.de',status:'Aktiv'}],equipment:[{id:id(),inventory:'FL001',category:'Flasche',name:'12 l Stahl',size:'12 l',status:'Frei'},{id:id(),inventory:'FL002',category:'Flasche',name:'15 l Stahl',size:'15 l',status:'Reserviert'},{id:id(),inventory:'JT015',category:'Jacket',name:'Mares',size:'L',status:'Frei'}],reservations:[],history:[{id:id(),time:new Date().toISOString(),text:'Anwendung initialisiert'}]});
-let db=(()=>{try{return JSON.parse(localStorage.getItem(KEY))||seed()}catch{return seed()}})(),session=null;
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function save(){localStorage.setItem(KEY,JSON.stringify(db));stats()}
-function hist(text){db.history.unshift({id:id(),time:new Date().toISOString(),text});save()}
-function doLogin(){
-  const username=u.value.trim().toLowerCase();
-  if(p.value!=='aquarius'||!['wart','mitglied'].includes(username)){
-    err.textContent='Benutzername oder Passwort falsch.';
-    return;
-  }
-  err.textContent='';
-  session={role:username==='wart'?'Gerätewart':'Mitglied',username};
-  localStorage.setItem('aquarius_session',JSON.stringify(session));
-  start();
-}
-function logout(){
-  if(!confirm('Möchtest du den Benutzer wechseln?'))return;
-  session=null;
-  localStorage.removeItem('aquarius_session');
-  app.classList.add('hidden');
-  login.classList.remove('hidden');
-  u.value='';
-  p.value='';
-  err.textContent='';
-  setTimeout(()=>u.focus(),50);
-}
-function start(){session=session||JSON.parse(localStorage.getItem('aquarius_session')||'null');if(!session)return;login.classList.add('hidden');app.classList.remove('hidden');who.textContent=session.role;newMember.classList.toggle('hidden',session.role!=='Gerätewart');newEquipment.classList.toggle('hidden',session.role!=='Gerätewart');render();view('dashboard')}
-function stats(){sm.textContent=db.members.length;se.textContent=db.equipment.length;sr.textContent=db.reservations.length;so.textContent=db.reservations.filter(x=>x.status==='Offen').length}
-function view(v){document.querySelectorAll('main section').forEach(x=>x.classList.add('hidden'));document.getElementById('v-'+v).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.v===v));render()}
-function render(){stats();renderMembers();renderEquipment();renderReservations();renderHistory();fillMembers()}
-function memberOpen(x=''){if(session.role!=='Gerätewart')return;let m=db.members.find(a=>a.id===x);mid.value=x;mname.value=m?.name||'';mgroup.value=m?.group||'Mitglied';memail.value=m?.email||'';mstatus.value=m?.status||'Aktiv';memberDlg.showModal()}
-function memberSave(){if(!mname.value.trim())return alert('Name fehlt');let o={id:mid.value||id(),name:mname.value.trim(),group:mgroup.value,email:memail.value.trim(),status:mstatus.value},i=db.members.findIndex(x=>x.id===o.id);i>=0?db.members[i]=o:db.members.push(o);hist((i>=0?'Mitglied geändert: ':'Mitglied angelegt: ')+o.name);memberDlg.close();render()}
-function memberDelete(x){if(!confirm('Mitglied löschen?'))return;let m=db.members.find(a=>a.id===x);db.members=db.members.filter(a=>a.id!==x);hist('Mitglied gelöscht: '+m.name);render()}
-function renderMembers(){members.innerHTML=db.members.length?db.members.map(m=>`<div class="item"><div class="row"><div><h3>${esc(m.name)}</h3><div class="muted">${esc(m.group)} · ${esc(m.email||'keine E-Mail')}</div></div><span class="badge ${m.status==='Aktiv'?'free':'defect'}">${m.status}</span></div>${session?.role==='Gerätewart'?`<div class="actions"><button class="btn small soft" onclick="memberOpen('${m.id}')">Bearbeiten</button><button class="btn small danger" onclick="memberDelete('${m.id}')">Löschen</button></div>`:''}</div>`).join(''):'<div class="empty">Keine Mitglieder.</div>'}
-function equipmentOpen(x=''){if(session.role!=='Gerätewart')return;let e=db.equipment.find(a=>a.id===x);eid.value=x;einventory.value=e?.inventory||'';ecategory.value=e?.category||'Flasche';ename.value=e?.name||'';esize.value=e?.size||'';estatus.value=e?.status||'Frei';equipmentDlg.showModal()}
-function equipmentSave(){if(!einventory.value.trim()||!ename.value.trim())return alert('Inventarnummer und Bezeichnung fehlen');let o={id:eid.value||id(),inventory:einventory.value.trim(),category:ecategory.value,name:ename.value.trim(),size:esize.value.trim(),status:estatus.value},i=db.equipment.findIndex(x=>x.id===o.id);i>=0?db.equipment[i]=o:db.equipment.push(o);hist((i>=0?'Equipment geändert: ':'Equipment angelegt: ')+o.inventory);equipmentDlg.close();render()}
-function equipmentDelete(x){if(!confirm('Equipment löschen?'))return;let e=db.equipment.find(a=>a.id===x);db.equipment=db.equipment.filter(a=>a.id!==x);hist('Equipment gelöscht: '+e.inventory);render()}
-function renderEquipment(){equipment.innerHTML=db.equipment.length?db.equipment.map(e=>`<div class="item"><div class="row"><div><h3>${esc(e.inventory)} · ${esc(e.name)}</h3><div class="muted">${esc(e.category)}${e.size?' · '+esc(e.size):''}</div></div><span class="badge ${e.status==='Frei'?'free':e.status==='Reserviert'?'reserved':'defect'}">${e.status}</span></div>${session?.role==='Gerätewart'?`<div class="actions"><button class="btn small soft" onclick="equipmentOpen('${e.id}')">Bearbeiten</button><button class="btn small danger" onclick="equipmentDelete('${e.id}')">Löschen</button></div>`:''}</div>`).join(''):'<div class="empty">Kein Equipment.</div>'}
-function fillMembers(){rmember.innerHTML=db.members.filter(m=>m.status==='Aktiv').map(m=>`<option value="${m.id}">${esc(m.name)}</option>`).join('');if(session?.role==='Mitglied'&&db.members[0])rmember.value=db.members[0].id;rmember.disabled=session?.role==='Mitglied'}
-function reservationOpen(){fillMembers();let t=new Date().toISOString().slice(0,10);rfrom.value=t;rto.value=t;rqty.value=1;rnote.value='';reservationDlg.showModal()}
-function reservationSave(){if(!rmember.value||!rfrom.value||!rto.value)return alert('Pflichtfelder fehlen');if(rto.value<rfrom.value)return alert('Enddatum liegt vor Startdatum');let m=db.members.find(x=>x.id===rmember.value),r={id:id(),memberId:m.id,memberName:m.name,category:rcategory.value,qty:+rqty.value,tariff:rtariff.value,from:rfrom.value,to:rto.value,note:rnote.value.trim(),status:'Offen',approvedQty:0};db.reservations.unshift(r);hist(`Reservierung angelegt: ${r.memberName}, ${r.qty}× ${r.category}`);reservationDlg.close();render()}
-function statusSet(x,s){let r=db.reservations.find(a=>a.id===x);if(s==='Genehmigt'){let q=+prompt('Wie viele werden genehmigt?',r.qty);if(!q||q<1||q>r.qty)return alert('Ungültige Anzahl');r.approvedQty=q}r.status=s;hist(`Reservierung ${s.toLowerCase()}: ${r.memberName}, ${r.category}`);render()}
-function cancelRes(x){let r=db.reservations.find(a=>a.id===x);if(r&&r.status==='Offen'){r.status='Storniert';hist(`Reservierung storniert: ${r.memberName}, ${r.category}`);render()}}
-function d(v){return new Date(v+'T12:00:00').toLocaleDateString('de-DE')}
-function renderReservations(){let a=db.reservations;if(session?.role==='Mitglied'&&db.members[0])a=a.filter(r=>r.memberId===db.members[0].id);reservations.innerHTML=a.length?a.map(r=>`<div class="item"><div class="row"><div><h3>${esc(r.memberName)} · ${r.qty}× ${esc(r.category)}</h3><div class="muted">${d(r.from)}–${d(r.to)} · ${esc(r.tariff)}${r.note?' · '+esc(r.note):''}${r.status==='Genehmigt'?`<br>Genehmigt: ${r.approvedQty} von ${r.qty}`:''}</div></div><span class="badge ${r.status==='Offen'?'open':r.status==='Genehmigt'?'approved':'rejected'}">${r.status}</span></div><div class="actions">${session?.role==='Gerätewart'&&r.status==='Offen'?`<button class="btn small success" onclick="statusSet('${r.id}','Genehmigt')">Genehmigen</button><button class="btn small danger" onclick="statusSet('${r.id}','Abgelehnt')">Ablehnen</button>`:''}${r.status==='Offen'?`<button class="btn small soft" onclick="cancelRes('${r.id}')">Stornieren</button>`:''}</div></div>`).join(''):'<div class="empty">Noch keine Reservierungen.</div>'}
-function renderHistory(){history.innerHTML=db.history.map(h=>`<div class="item"><h3>${esc(h.text)}</h3><div class="muted">${new Date(h.time).toLocaleString('de-DE')}</div></div>`).join('')}
-u.addEventListener('keydown',e=>{if(e.key==='Enter')p.focus()});
-p.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
-start()
-</script>
-<div style="position:fixed;right:8px;bottom:82px;z-index:6;background:#0b4f8c;color:#fff;padding:5px 8px;border-radius:8px;font-size:11px">Version 0.2</div>
-</body></html>
+<dialog id="memberDialog">
+  <form method="dialog" class="dialog-shell">
+    <header><h3>Mitglied</h3><button class="icon-button" value="cancel">×</button></header>
+    <div class="dialog-body form-grid">
+      <input id="memberId" type="hidden">
+      <label>Name<input id="memberName"></label>
+      <label>E-Mail<input id="memberEmail" type="email"></label>
+      <label>Gruppe
+        <select id="memberGroup"><option>Mitglied</option><option>Jugend</option><option>Vorstand</option></select>
+      </label>
+      <label>Status
+        <select id="memberStatus"><option>Aktiv</option><option>Gesperrt</option></select>
+      </label>
+    </div>
+    <footer><button class="btn soft" value="cancel">Abbrechen</button><button id="saveMemberButton" type="button" class="btn primary">Speichern</button></footer>
+  </form>
+</dialog>
+
+<dialog id="inventoryDialog">
+  <form method="dialog" class="dialog-shell">
+    <header><h3>Inventargegenstand</h3><button class="icon-button" value="cancel">×</button></header>
+    <div class="dialog-body form-grid">
+      <input id="inventoryId" type="hidden">
+      <label>Inventarnummer<input id="inventoryNumber" placeholder="z. B. F-001"></label>
+      <label>Kategorie
+        <select id="inventoryCategory">
+          <option>Flasche</option><option>Jacket</option><option>Atemregler</option><option>Blei</option>
+          <option>Maske</option><option>Flossen</option><option>Schnorchel</option><option>Lampe</option><option>Tauchcomputer</option>
+        </select>
+      </label>
+      <label>Bezeichnung<input id="inventoryName"></label>
+      <label>Größe / Ausführung<input id="inventoryVariant" placeholder="z. B. 12 l Stahl, L oder 42–43"></label>
+      <label>Status
+        <select id="inventoryStatus">
+          <option>Verfügbar</option><option>Reserviert</option><option>Ausgeliehen</option><option>Wartung</option><option>Defekt</option>
+        </select>
+      </label>
+    </div>
+    <footer><button class="btn soft" value="cancel">Abbrechen</button><button id="saveInventoryButton" type="button" class="btn primary">Speichern</button></footer>
+  </form>
+</dialog>
+
+<script src="js/app.js"></script>
+</body>
+</html>
