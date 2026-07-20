@@ -20,3 +20,11 @@ Enthalten:
 
 Hinweis:
 Diese Version speichert Daten lokal im jeweiligen Browser. Für gemeinsame Nutzung auf mehreren Geräten muss als nächster Schritt Supabase angebunden werden.
+
+
+VERSION 0.2
+- Sichtbarer Button „Benutzer wechseln“
+- Abmeldung mit Bestätigung
+- Gespeicherte Sitzung wird gelöscht
+- Rückkehr zur Anmeldung ohne Browserdaten zu löschen
+- Anmeldung per Enter-Taste
