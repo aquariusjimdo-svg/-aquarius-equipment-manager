@@ -1,37 +1,38 @@
-AQUARIUS EQUIPMENT MANAGER – VERSION 0.3
+# Aquarius Equipment Manager – Version 0.3.1
 
-UPLOAD AUF GITHUB PAGES
-1. ZIP-Datei auf dem iPhone entpacken.
-2. Den kompletten Inhalt hochladen:
-   - index.html
-   - Ordner css
-   - Ordner js
-   - README.md
-3. Bestehende Dateien mit gleichem Namen ersetzen.
-4. Alte index.html darf überschrieben werden.
-5. GitHub Pages muss auf Branch main und /(root) eingestellt sein.
+Mobile-first Geräteverwaltung für Aquarius Rosenstein e.V.
 
-TESTZUGÄNGE
-Gerätewart:
-Benutzername: wart
-Passwort: aquarius
+## Dateien
 
-Mitglied:
-Benutzername: mitglied
-Passwort: aquarius
+Alle Dateien liegen direkt im Hauptverzeichnis:
 
-NEU IN VERSION 0.3
-- Mitglieder haben keinen Zugriff auf Mitgliederliste, Inventar oder Historie.
-- Mitglieder sehen nur eigene Reservierungen und eigene Ausleihen.
-- Eine Reservierung kann mehrere Kategorien enthalten.
-- Strukturierte Auswahl von Flaschengröße, Jacketgröße und Flossengröße.
-- Kein Ausrüstungsset und kein Bemerkungsfeld.
-- Genehmigung, Teilgenehmigung und Ablehnung je Reservierung.
-- Klickbare Dashboard-Kacheln.
-- Suchfelder für Mitglieder, Inventar und Reservierungen.
-- Jeder Inventargegenstand besitzt eine eigene Inventarnummer.
-- Projekt ist in HTML, CSS und JavaScript aufgeteilt.
+- `index.html`
+- `style.css`
+- `app.js`
 
-HINWEIS
-Die Daten werden weiterhin lokal im jeweiligen Browser gespeichert.
-Mehrere Geräte teilen deshalb noch keine gemeinsamen Daten.
+## Testzugänge
+
+Gerätewart: `wart` / `aquarius`
+
+Mitglied: `mitglied` / `aquarius`
+
+## Funktionen
+
+- Login und Logout
+- Rollentrennung Gerätewart/Mitglied
+- Reservierungen mit mehreren Kategorien
+- Mitglieder sehen nur eigene Reservierungen und Ausleihen
+- Genehmigen, Ablehnen, Ausgabe und Rückgabe
+- Manuelle Zuordnung von Inventarnummern
+- Suchfunktion für Reservierungen und Inventar
+- Speicherung über `localStorage`
+- GitHub-Pages-kompatibel
+- iPhone-optimierte Bedienung
+
+## Upload auf GitHub
+
+Die vorhandenen Dateien `index.html`, `style.css` und `app.js` im Repository ersetzen. Alle drei Dateien müssen direkt im Hauptverzeichnis liegen.
+
+## Wichtig
+
+Diese Version speichert Daten nur im Browser des jeweiligen Geräts. Eine gemeinsame Datenbank für mehrere Vereinsnutzer folgt in einer späteren Version.
